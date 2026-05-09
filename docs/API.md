@@ -71,9 +71,6 @@
     }
     ```
 
-    - **Erros:**
-      - `401` — Credenciais inválidas (email não existe ou senha incorreta)
-
       ## Alunos
 
         ## GET /alunos
@@ -97,15 +94,12 @@
             "nome": "Amilton",
             "cidade": "Taiobeiras",
             "frase": "Nunca desistir.",
-            "planosFuturos": "Estudar Matemática",
+            "planosFuturos": "Cursar Matemática",
             "fotoUrl": null
         }
         ]
         ```
         - **Resposta de sucesso:** `200 OK`
-        
-        - **Erros:**
-            - `401` — Credenciais inválidas (email não existe)
 
         ## GET /alunos/:id
         Busca um aluno pelo ID
@@ -127,6 +121,9 @@
         ```
         - **Resposta de sucesso:** `200 OK`
 
+        - **Erros:**
+            - `404` — Credenciais inválidas (e-mail não existe)
+
         ## PUT/alunos/:id
         Atualiza o próprio perfil
 
@@ -135,18 +132,18 @@
         - **Body:** Sim
 
         ```json
-
         {
-            "email": "maria@email.com",
-            "senha": "novasenha321",
+            "frase": "Abrace o mundo e você será pisoteado.",
+            "planosFuturos": "Cursar Química",
+            "fotoUrl": null
         }
-
         ```
 
         - **Resposta de sucesso:** `200 OK`
 
         - **Erros:**
-            - `401` — Credenciais inválidas (email não existe)
+            - `401` — Usuário não autenticado
+            - `403` — Sem permissão para atualizar este perfil
 
         ## DELETE /alunos/:id
         Remove um aluno   
