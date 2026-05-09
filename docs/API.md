@@ -147,8 +147,13 @@
 
         ## DELETE /alunos/:id
         Remove um aluno   
-    
-        - `GET /alunos/:id` também não tem body. A resposta é um objeto único. Se o ID não existir, retorna `404`.
-        - `PUT /alunos/:id` recebe no body **apenas os campos que podem ser atualizados**: `nome`, `cidade`, `frase`, `planosFuturos`, `fotoUrl`. Todos são opcionais (o aluno pode atualizar só a frase, por exemplo). Retorna `401` se não estiver logado e `403` se tentar atualizar o perfil de outra pessoa.
-        - `DELETE /alunos/:id` não tem body. Só o `ADMIN` pode usar. Retorna `204` (sem conteúdo). Retorna `401` se não estiver logado e `403` se não for admin.
-        - **Nenhum endpoint de `/alunos` retorna `senhaHash`.**
+
+        - **Autenticação:** Sim (Bearer token (admin))
+
+        - **Body:** Não
+
+        - **Resposta:** `204 No Content`
+
+        - **Erros:**
+            - `401` — Usuário não autenticado
+            - `403` — Usuário sem permissão de administrador
