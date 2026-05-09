@@ -152,8 +152,33 @@
 
         - **Body:** Não
 
-        - **Resposta:** `204 No Content`
+        - **Resposta de Sucesso:** `204 No Content`
 
         - **Erros:**
             - `401` — Usuário não autenticado
             - `403` — Usuário sem permissão de administrador
+
+    ### Mensagens
+
+    ## GET /mensagens
+    Lista todas as mensagens do mural
+
+    - **Autenticação:** Não
+    - **Body:**
+
+    ```json
+    
+    ```
+    - **Resposta:**
+
+    ## POST /mensagens
+    Cria uma nova mensagem
+
+    - **Autenticação:** Sim (Bearer token)
+    - **Body:**
+
+    ## DELETE /mensagens/:id
+    Exclui uma mensagem
+
+    - **Autenticação:** Sim (Bearer token)
+    - **Body:** Não
