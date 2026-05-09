@@ -73,3 +73,85 @@
 
     - **Erros:**
       - `401` — Credenciais inválidas (email não existe ou senha incorreta)
+
+      ## Alunos
+
+        ## GET /alunos
+        Lista todos os alunos
+
+        - **Autenticação:** Não
+        - **Body:** Não
+
+        ```json
+        [
+        {
+            "id": 1,
+            "nome": "Alana",
+            "cidade": "Salinas",
+            "frase": "Abrace o mundo e você será abraçado.",
+            "planosFuturos": "Cursar Biologia",
+            "fotoUrl": null
+        },
+        {
+            "id": 2,
+            "nome": "Amilton",
+            "cidade": "Taiobeiras",
+            "frase": "Nunca desistir.",
+            "planosFuturos": "Estudar Matemática",
+            "fotoUrl": null
+        }
+        ]
+        ```
+        - **Resposta de sucesso:** `200 OK`
+        
+        - **Erros:**
+            - `401` — Credenciais inválidas (email não existe)
+
+        ## GET /alunos/:id
+        Busca um aluno pelo ID
+
+        - **Autenticação:** Não
+        - **Body:** Não
+
+        ```json
+
+        {
+            "id": 1,
+            "nome": "Alana",
+            "cidade": "Salinas",
+            "frase": "Abrace o mundo e você será abraçado.",
+            "planosFuturos": "Cursar Biologia",
+            "fotoUrl": null
+        }
+
+        ```
+        - **Resposta de sucesso:** `200 OK`
+
+        ## PUT/alunos/:id
+        Atualiza o próprio perfil
+
+        - **Autenticação:** Sim (bearer token)
+
+        - **Body:** Sim
+
+        ```json
+
+        {
+            "email": "maria@email.com",
+            "senha": "novasenha321",
+        }
+
+        ```
+
+        - **Resposta de sucesso:** `200 OK`
+
+        - **Erros:**
+            - `401` — Credenciais inválidas (email não existe)
+
+        ## DELETE /alunos/:id
+        Remove um aluno   
+    
+        - `GET /alunos/:id` também não tem body. A resposta é um objeto único. Se o ID não existir, retorna `404`.
+        - `PUT /alunos/:id` recebe no body **apenas os campos que podem ser atualizados**: `nome`, `cidade`, `frase`, `planosFuturos`, `fotoUrl`. Todos são opcionais (o aluno pode atualizar só a frase, por exemplo). Retorna `401` se não estiver logado e `403` se tentar atualizar o perfil de outra pessoa.
+        - `DELETE /alunos/:id` não tem body. Só o `ADMIN` pode usar. Retorna `204` (sem conteúdo). Retorna `401` se não estiver logado e `403` se não for admin.
+        - **Nenhum endpoint de `/alunos` retorna `senhaHash`.**
