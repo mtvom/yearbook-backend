@@ -73,14 +73,47 @@
 
   ## Alunos
 
-    ## GET /alunos
+    ### GET /alunos
+
     Lista todos os alunos
 
     - **Autenticação:** Não
-    - **Body:** Não
+    - **Body:** Nenhum
 
-    ```json
-    [
+    - **Resposta de sucesso:** `201 Created`
+
+      ```json
+        [
+          {
+            "id": 1,
+            "nome": "Alana",
+            "cidade": "Salinas",
+            "frase": "Abrace o mundo e você será abraçado.",
+            "planosFuturos": "Cursar Biologia",
+            "fotoUrl": null
+          },
+          {
+            "id": 2,
+            "nome": "Amilton",
+            "cidade": "Taiobeiras",
+            "frase": "Nunca desistir.",
+            "planosFuturos": "Cursar Matemática",
+            "fotoUrl": null
+          }
+        ]
+      ```
+
+    ### GET /alunos/:id
+
+    Busca um aluno pelo ID
+
+    - **Autenticação:** Não
+    - **Body:** Nenhum
+
+    - **Resposta de sucesso:** `200 OK`
+
+      ```json
+
       {
         "id": 1,
         "nome": "Alana",
@@ -88,43 +121,15 @@
         "frase": "Abrace o mundo e você será abraçado.",
         "planosFuturos": "Cursar Biologia",
         "fotoUrl": null
-      },
-      {
-        "id": 2,
-        "nome": "Amilton",
-        "cidade": "Taiobeiras",
-        "frase": "Nunca desistir.",
-        "planosFuturos": "Cursar Matemática",
-        "fotoUrl": null
       }
-    ]
-    ```
-    - **Resposta de sucesso:** `200 OK`
 
-    ## GET /alunos/:id
-    Busca um aluno pelo ID
-
-    - **Autenticação:** Não
-    - **Body:** Não
-
-    ```json
-
-    {
-      "id": 1,
-      "nome": "Alana",
-      "cidade": "Salinas",
-      "frase": "Abrace o mundo e você será abraçado.",
-      "planosFuturos": "Cursar Biologia",
-      "fotoUrl": null
-    }
-
-    ```
-    - **Resposta de sucesso:** `200 OK`
+      ```
 
     - **Erros:**
       - 404 — Aluno não encontrado (e-mail não existe)
 
-    ## PUT/alunos/:id
+    ### PUT /alunos/:id
+
     Atualiza o próprio perfil
 
     - **Autenticação:** Sim (Bearer Token)
@@ -141,16 +146,27 @@
 
     - **Resposta de sucesso:** `200 OK`
 
+    ```json
+    {
+      "id": 1,
+      "nome": "Alana",
+      "cidade": "Salinas",
+      "frase": "Abrace o mundo e você será pisoteado.",
+      "planosFuturos": "Cursar Química",
+      "fotoUrl": null
+    }
+    ```
+
     - **Erros:**
       - `401` — Usuário não autenticado
       - `403` — Sem permissão para atualizar este perfil
 
-    ## DELETE /alunos/:id
+    ### DELETE /alunos/:id
+
     Remove um aluno   
 
     - **Autenticação:** Sim (Bearer Token - Admin)
-
-    - **Body:** Não
+    - **Body:** Nenhum
 
     - **Resposta de Sucesso:** `204 No Content`
 
@@ -158,42 +174,45 @@
       - `401` — Usuário não autenticado
       - `403` — Usuário sem permissão de administrador
 
-  ### Mensagens
+  ## Mensagens
 
-    ## GET /mensagens
+    ### GET /mensagens
+
     Lista todas as mensagens do mural
 
     - **Autenticação:** Não
-    - **Body:**
+    - **Body:** Nenhum
+
+    - **Resposta de sucesso:** `200 OK`
 
     ```json
-    [
-      {
-        "idTexto": 2,
-        "texto": "Boa sorte!",
+      [
+        {
+          "id": 2,
+          "texto": "Boa sorte!",
 
-        "autor": {
-          "id": 1,
-          "nome": "Alana",
-          "fotoUrl": null
-        }
-      }
+          "autor": {
+            "id": 1,
+            "nome": "Alana",
+            "fotoUrl": null
+          }
+        },
 
-      {
-        "idTexto": 3,
-        "texto": "Obrigado, você também!",
+        {
+          "id": 3,
+          "texto": "Obrigado, você também!",
 
-        "autor": {
+          "autor": {
           "id": 2,
           "nome": "Amilton",
           "fotoUrl": null
+          }
         }
-      }
-    ]
+      ]
     ```
-    - **Resposta de sucesso:** `200 OK`
 
-    ## POST /mensagens
+    ### POST /mensagens
+    
     Cria uma nova mensagem
 
     - **Autenticação:** Sim (Bearer token)
@@ -206,17 +225,30 @@
     }
     ```
 
-    - **Resposta de sucesso:** `200 OK`
+    - **Resposta de sucesso:** `201 Created`
+
+    ```json
+
+      "texto": "Boa sorte para todo mundo!",
+      "imagemUrl": null
+
+      "autor": {
+      "id": 2,
+      "nome": "Amilton",
+      "fotoUrl": null
+      }
+    ```
 
     - **Erros:**
       - `400` — Campos obrigatórios ausentes
       - `401` — Usuário não autenticado
 
-    ## DELETE /mensagens/:id
+    ### DELETE /mensagens/:id
+
     Exclui uma mensagem
 
     - **Autenticação:** Sim (Bearer token)
-    - **Body:** Não
+    - **Body:** Nenhum
 
     - **Resposta de Sucesso:** `204 No Content`
 
