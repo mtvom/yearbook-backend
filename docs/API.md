@@ -202,10 +202,12 @@
           }
         },
 
-        {
+        {  
           "idMensagem": 3,
           "texto": "Obrigado, você também!",
 
+          /*o que entendi é que "include do Prisma" é a mesma coisa que
+          essa seção "autor"*/
           "autor": {
           "id": 2,
           "nome": "Amilton",
