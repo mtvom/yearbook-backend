@@ -87,18 +87,24 @@
           {
             "id": 1,
             "nome": "Alana",
+            "email": "ajro1@email.com",
             "cidade": "Salinas",
             "frase": "Abrace o mundo e você será abraçado.",
             "planosFuturos": "Cursar Biologia",
-            "fotoUrl": null
+            "fotoUrl": null,
+            "role": "USER",
+            "criadoEm": "2026-04-03T10:30:00.000Z"
           },
           {
             "id": 2,
             "nome": "Amilton",
+            "email": "apj1@email.com",
             "cidade": "Taiobeiras",
             "frase": "Nunca desistir.",
             "planosFuturos": "Cursar Matemática",
-            "fotoUrl": null
+            "fotoUrl": null,
+            "role": "USER",
+            "criadoEm": "2026-04-04T01:40:00.000Z"
           }
         ]
       ```
