@@ -9,67 +9,67 @@
     - O campo `senhaHash` nunca é retornado em nenhuma resposta
     - Erros seguem o formato `{ "erro": "mensagem descritiva" }`
 
-    ## Auth
+  ## Auth
 
-      ### POST /auth/register
+    ### POST /auth/register
 
-      Cria uma nova conta de aluno.
+    Cria uma nova conta de aluno.
 
-      - **Autenticação:** Não
-      - **Body:**
+    - **Autenticação:** Não
+    - **Body:**
 
-      ```json
-      {
-        "nome": "Maria Silva",
-        "email": "maria@email.com",
-        "senha": "minhasenha123",
-        "cidade": "Salinas",
-        "frase": "Aqui começa o futuro.",
-        "planosFuturos": "Cursar Ciência da Computação na UFMG"
-      }
-      ```
+    ```json
+    {
+      "nome": "Maria Silva",
+      "email": "maria@email.com",
+      "senha": "minhasenha123",
+      "cidade": "Salinas",
+      "frase": "Aqui começa o futuro.",
+      "planosFuturos": "Cursar Ciência da Computação na UFMG"
+    }
+    ```
 
-      - **Resposta de sucesso:** `201 Created`
+    - **Resposta de sucesso:** `201 Created`
 
-      ```json
-      {
-        "id": 1,
-        "nome": "Maria Silva",
-        "email": "maria@email.com",
-        "cidade": "Salinas",
-        "frase": "Aqui começa o futuro.",
-        "planosFuturos": "Cursar Ciência da Computação na UFMG",
-        "fotoUrl": null,
-        "role": "USER",
-        "criadoEm": "2026-04-03T10:30:00.000Z"
-      }
-      ```
+    ```json
+    {
+      "id": 1,
+      "nome": "Maria Silva",
+      "email": "maria@email.com",
+      "cidade": "Salinas",
+      "frase": "Aqui começa o futuro.",
+      "planosFuturos": "Cursar Ciência da Computação na UFMG",
+      "fotoUrl": null,
+      "role": "USER",
+      "criadoEm": "2026-04-03T10:30:00.000Z"
+    }
+    ```
 
-      - **Erros:**
-        - `400` — Campos obrigatórios ausentes
-        - `409` — Email já cadastrado
+    - **Erros:**
+      - `400` — Campos obrigatórios ausentes
+      - `409` — Email já cadastrado
 
-      ### POST /auth/login
+    ### POST /auth/login
 
-      Autentica um aluno e retorna um token JWT.
+    Autentica um aluno e retorna um token JWT.
 
-      - **Autenticação:** Não
-      - **Body:**
+    - **Autenticação:** Não
+    - **Body:**
 
-      ```json
-      {
-        "email": "maria@email.com",
-        "senha": "minhasenha123"
-      }
-      ```
+    ```json
+    {
+      "email": "maria@email.com",
+      "senha": "minhasenha123"
+    }
+    ```
 
-      - **Resposta de sucesso:** `200 OK`
+    - **Resposta de sucesso:** `200 OK`
 
-      ```json
-      {
-        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-      }
-      ```
+    ```json
+    {
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+    }
+    ```
 
   ## Alunos
 
@@ -139,8 +139,6 @@
     ```json
     {
       "frase": "Abrace o mundo e você será pisoteado.",
-      "planosFuturos": "Cursar Química",
-      "fotoUrl": null
     }
     ```
 
@@ -188,7 +186,7 @@
     ```json
       [
         {
-          "id": 2,
+          "idMensagem": 2,
           "texto": "Boa sorte!",
 
           "autor": {
@@ -199,7 +197,7 @@
         },
 
         {
-          "id": 3,
+          "idMensagem": 3,
           "texto": "Obrigado, você também!",
 
           "autor": {
@@ -212,7 +210,7 @@
     ```
 
     ### POST /mensagens
-    
+
     Cria uma nova mensagem
 
     - **Autenticação:** Sim (Bearer token)
@@ -221,7 +219,6 @@
     ```json
     {
       "texto": "Boa sorte para todo mundo!",
-      "imagemUrl": null
     }
     ```
 
@@ -230,7 +227,6 @@
     ```json
 
       "texto": "Boa sorte para todo mundo!",
-      "imagemUrl": null
 
       "autor": {
       "id": 2,
@@ -254,4 +250,4 @@
 
     - **Erros:**
       - `401` — Usuário não autenticado
-      - `403` — Usuário sem permissão de administrador
+      - `403` — Usuário sem permissão
