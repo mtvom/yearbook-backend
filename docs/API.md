@@ -80,7 +80,7 @@
     - **Autenticação:** Não
     - **Body:** Nenhum
 
-    - **Resposta de sucesso:** `201 Created`
+    - **Resposta de sucesso:** `200 OK`
 
       ```json
         [
