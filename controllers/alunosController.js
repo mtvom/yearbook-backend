@@ -39,36 +39,48 @@ export async function buscarAluno(req, res) {
 
 // --- Stubs para o desafio do aluno ---
 
-// 🎯 POST /alunos — cria um novo aluno
-// Dica: use prisma.aluno.create({ data: { ... }, select: selectSemSenha })
-// Dica: os dados do aluno vêm de req.body (nome, email, senhaHash, cidade, frase, planosFuturos)
-// Dica: retorne status 201 com o aluno criado
 export async function criarAluno(req, res) {
-    const { id } = req.params;
+  const { id } = req.params;
 
-    try{
-        const alunos = await prisma.aluno.update({
-        where: { id: Number(id) },
-        data: req.body,
-        select: selectSemSenha, //omite senhaHash
-        });
-        res.json(alunos); // retorna todos os campos EXCETO senhaHash
-    }
-   catch (error) {return res.status(404).json({ erro: 'Aluno não encontrado' }); // null → 404
+  try{
+    const alunos = await prisma.aluno.update({
+    where: { id: Number(id) },
+    data: req.body,
+    select: selectSemSenha, //omite senhaHash
+    });
+    res.json(alunos); // retorna todos os campos EXCETO senhaHash
+  }
+  catch (error) {
+    return res.status(404).json({ erro: 'Aluno não encontrado' }); // null → 404
+  }
 }
 
-// 🎯 PUT /alunos/:id — atualiza um aluno existente
-// Dica: use prisma.aluno.update({ where: { id: Number(id) }, data: { ... }, select: selectSemSenha })
-// Dica: o id vem de req.params, os dados atualizados de req.body
-// Dica: se o aluno não existir, o Prisma lança um erro — use try/catch
 export async function atualizarAluno(req, res) {
-  // implemente aqui
+  const { id } = req.params;
+
+  try {
+    const aluno = await prisma.aluno.update({
+    where: {id: Number(id),},
+    data: req.body,
+    select: selectSemSenha,
+    });
+
+    res.json(aluno);
+  }
+  catch (error) {
+  return res.status(404).json({ erro: 'Aluno não encontrado' }); // null → 404
+  }
 }
 
-// 🎯 DELETE /alunos/:id — deleta um aluno
-// Dica: use prisma.aluno.delete({ where: { id: Number(id) } })
-// Dica: retorne status 204 (sem conteúdo) com res.status(204).end()
-// Dica: se o aluno não existir, o Prisma lança um erro — use try/catch
 export async function deletarAluno(req, res) {
-  // implemente aqui
+  const { id } = req.params;
+
+  try {
+    await prisma.aluno.delete({where:{id: Number(id),},});
+
+    res.status(204).end();
+  } 
+  catch (error) {
+    return res.status(404).json({ erro: 'Aluno não encontrado' }); // null → 404
+  }
 }
