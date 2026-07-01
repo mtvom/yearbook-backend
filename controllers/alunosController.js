@@ -68,7 +68,7 @@ export async function atualizarAluno(req, res) {
     res.json(aluno);
   }
   catch (error) {
-  return res.status(404).json({ erro: 'Aluno não encontrado' }); // null → 404
+    return res.status(404).json({ erro: 'Aluno não encontrado' }); // null → 404
   }
 }
 
