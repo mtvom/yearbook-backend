@@ -38,49 +38,44 @@ export async function buscarAluno(req, res) {
 }
 
 // --- Stubs para o desafio do aluno ---
-
 export async function criarAluno(req, res) {
-  const { id } = req.params;
-
-  try{
-    const alunos = await prisma.aluno.update({
-    where: { id: Number(id) },
-    data: req.body,
-    select: selectSemSenha, //omite senhaHash
+  try {
+    const aluno = await prisma.aluno.create({
+      data: req.body,
+      select: selectSemSenha,
     });
-    res.json(alunos); // retorna todos os campos EXCETO senhaHash
-  }
-  catch (error) {
-    return res.status(404).json({ erro: 'Aluno não encontrado' }); // null → 404
+
+    return res.status(201).json(aluno);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json(error);
   }
 }
 
 export async function atualizarAluno(req, res) {
+  console.log("Entrou no atualizarAluno");
+
   const { id } = req.params;
+  try{
+  const aluno = await prisma.aluno.update({
+  where: { id: Number(id) },
+  data: req.body,
+  select: selectSemSenha,
+  });
 
-  try {
-    const aluno = await prisma.aluno.update({
-    where: {id: Number(id),},
-    data: req.body,
-    select: selectSemSenha,
-    });
-
-    res.json(aluno);
-  }
-  catch (error) {
-    return res.status(404).json({ erro: 'Aluno não encontrado' }); // null → 404
+  return res.status(200).json(aluno);
+  } catch (error) {
+  consolcleae.error(error);
+  return res.status(500).json(error);
   }
 }
 
 export async function deletarAluno(req, res) {
   const { id } = req.params;
 
-  try {
-    await prisma.aluno.delete({where:{id: Number(id),},});
+  await prisma.aluno.delete({
+    where: { id: Number(id) },
+  });
 
-    res.status(204).end();
-  } 
-  catch (error) {
-    return res.status(404).json({ erro: 'Aluno não encontrado' }); // null → 404
-  }
+  return res.status(204).end();
 }
