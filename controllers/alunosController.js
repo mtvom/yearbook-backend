@@ -53,8 +53,6 @@ export async function criarAluno(req, res) {
 }
 
 export async function atualizarAluno(req, res) {
-  console.log("Entrou no atualizarAluno");
-
   const { id } = req.params;
   try{
   const aluno = await prisma.aluno.update({
@@ -65,7 +63,7 @@ export async function atualizarAluno(req, res) {
 
   return res.status(200).json(aluno);
   } catch (error) {
-  consolcleae.error(error);
+  console.error(error);
   return res.status(500).json(error);
   }
 }
@@ -73,9 +71,14 @@ export async function atualizarAluno(req, res) {
 export async function deletarAluno(req, res) {
   const { id } = req.params;
 
-  await prisma.aluno.delete({
-    where: { id: Number(id) },
-  });
+  try {
+    await prisma.aluno.delete({
+      where: { id: Number(id) },
+    });
 
-  return res.status(204).end();
+    return res.status(204).end();
+  } catch (error) {
+  console.error(error);
+  return res.status(500).json(error);
+  }
 }
