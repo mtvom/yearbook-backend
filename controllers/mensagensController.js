@@ -10,8 +10,8 @@ const selectMensagens = {
 };
 
 // GET /mensagens — lista todas as mensagens (mais recentes primeiro, com dados do autor)
-export async function listarMensagens(req, res) {
-  const mensagens = await prisma.mensagem.findMany({
+export async function listarMensagens(req, res, next) {
+  try{ const mensagens = await prisma.mensagem.findMany({
     orderBy: { criadoEm: 'desc' },  // mais recente primeiro
     include: {
       autor: {                        // traz dados do autor junto
@@ -23,6 +23,9 @@ export async function listarMensagens(req, res) {
     },
   });
   res.json(mensagens); // retorna a lista com autor embutido
+  } catch (erro){
+    next(erro);
+  }
 }
 
 // --- Stubs para o desafio do aluno ---
@@ -34,12 +37,12 @@ está vazio e (2) mensagens não têm senhaHash, então não precisa de selectSe
 */
 
 // 🎯 POST /mensagens — cria uma nova mensagem
-export async function criarMensagem(req, res) {
+export async function criarMensagem(req, res, next) {
   try {
     const { texto, imagemUrl, autorId } = req.body;
 
     if (!texto?.trim()) {
-      return res.status(400).json({ error: 'Texto é obrigatório' });
+      return res.status(400).json({ erro: 'Texto é obrigatório' });
     }
 
     const mensagem = await prisma.mensagem.create({
@@ -53,14 +56,14 @@ export async function criarMensagem(req, res) {
 
     return res.status(201).json(mensagem);
 
-  } catch (error) {
-    return res.status(500).json(error);
+  } catch (erro) {
+    next (erro);
   }
 }
 
 // 🎯 DELETE /mensagens/:id — deleta uma mensagem
 // Siga o mesmo padrão do deletarAluno
-export async function deletarMensagem(req, res) {
+export async function deletarMensagem(req, res, next) {
   const { id } = req.params;
 
   try {
@@ -69,7 +72,9 @@ export async function deletarMensagem(req, res) {
     });
 
     return res.status(204).end();
-  } catch (error) {
-    return res.status(500).json(error);
+  } catch (erro) {
+     return res.status(500).json({
+      erro: "o id não confere a nenhuma mensagem"
+    });
   }
 }

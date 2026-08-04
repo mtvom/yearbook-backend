@@ -15,16 +15,22 @@ const selectSemSenha = {
 };
 
 // GET /alunos — lista todos os alunos
-export async function listarAlunos(req, res) {
-  const alunos = await prisma.aluno.findMany({
-    select: selectSemSenha, // retorna todos os campos EXCETO senhaHash
-  });
-  res.json(alunos); // responde com o array de alunos em JSON
+export async function listarAlunos(req, res, next) {  // adicione next aos parâmetros
+  try {
+    const alunos = await prisma.aluno.findMany({
+      select: selectSemSenha,
+    });
+    res.json(alunos);
+  } catch (erro) {
+    next(erro);  // passa o erro para o middleware global
+  }
 }
 
 // GET /alunos/:id — busca um aluno pelo ID
-export async function buscarAluno(req, res) {
-  const { id } = req.params; // extrai o :id da URL
+
+export async function buscarAluno(req, res, next) {
+  try{
+    const { id } = req.params; // extrai o :id da URL
   const aluno = await prisma.aluno.findUnique({
     where: { id: Number(id) }, // converte string → number
     select: selectSemSenha,    // omite senhaHash
@@ -35,10 +41,14 @@ export async function buscarAluno(req, res) {
   }
 
   res.json(aluno); // retorna o aluno encontrado
+  } catch(erro){
+    next(erro);
+  }
+  
 }
 
 // --- Stubs para o desafio do aluno ---
-export async function criarAluno(req, res) {
+export async function criarAluno(req, res, next) {
   try {
     const aluno = await prisma.aluno.create({
       data: req.body,
@@ -46,13 +56,15 @@ export async function criarAluno(req, res) {
     });
 
     return res.status(201).json(aluno);
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json(error);
+  } catch (erro) {
+    console.erro(erro);
+    return res.status(500).json({
+      erro: "o id não confere a nenhum aluno"
+    });
   }
 }
 
-export async function atualizarAluno(req, res) {
+export async function atualizarAluno(req, res, next) {
   const { id } = req.params;
   try{
   const aluno = await prisma.aluno.update({
@@ -62,13 +74,15 @@ export async function atualizarAluno(req, res) {
   });
 
   return res.status(200).json(aluno);
-  } catch (error) {
-  console.error(error);
-  return res.status(500).json(error);
+  } catch (erro) {
+    console.error(erro);
+    return res.status(500).json({
+      erro: "o id não confere a nenhum aluno"
+    });
   }
 }
 
-export async function deletarAluno(req, res) {
+export async function deletarAluno(req, res, next) {
   const { id } = req.params;
 
   try {
@@ -77,8 +91,9 @@ export async function deletarAluno(req, res) {
     });
 
     return res.status(204).end();
-  } catch (error) {
-  console.error(error);
-  return res.status(500).json(error);
+  } catch (erro) {
+     return res.status(500).json({
+      erro: "o id não confere a nenhum aluno"
+    });
   }
 }
