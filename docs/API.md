@@ -1,3 +1,9 @@
+
+## CORS
+
+Olá. Gostaria de te dizer que essa API possui CORS ativado para qualquer origem (*). Você pode acessá-la através de qualquer domínio sem configuração adicional no cliente.
+
+
 # API do Yearbook — Documentação de Endpoints
 
     Base URL (produção): `https://yearbook-backend-theta.vercel.app/`
