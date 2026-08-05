@@ -1,4 +1,4 @@
-import prisma from '/workspaces/yearbook-backend/prisma/client.js'; // importa o singleton do Prisma
+import prisma from '.../prisma/client.js'; // importa o singleton do Prisma
 
 // select que omite senhaHash — reutilizado em todas as queries de alunos
 const selectSemSenha = {

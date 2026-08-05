@@ -1,4 +1,4 @@
-import prisma from '../prisma/client.js'; // importa o singleton do Prisma
+import prisma from '.../prisma/client.js'; // importa o singleton do Prisma
 
 const selectMensagens = {
   id: true,
