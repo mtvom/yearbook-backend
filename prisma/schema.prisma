@@ -7,7 +7,7 @@
 // Datasource — conexão com o banco PostgreSQL no Neon
 datasource db {
   provider = "postgresql"           // tipo de banco
-  url      = env("DATABASE_URL")
+  url      = env("DATABASE_URL_dojeitoqueoprofessorsolicitou")
 } 
 
 // Generator — gera o Prisma Client em JavaScript
