@@ -73,8 +73,6 @@ export async function deletarMensagem(req, res, next) {
 
     return res.status(204).end();
   } catch (erro) {
-     return res.status(500).json({
-      erro: "o id não confere a nenhuma mensagem"
-    });
+    next (erro);
   }
 }

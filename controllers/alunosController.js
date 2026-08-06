@@ -57,10 +57,7 @@ export async function criarAluno(req, res, next) {
 
     return res.status(201).json(aluno);
   } catch (erro) {
-    console.erro(erro);
-    return res.status(500).json({
-      erro: "o id não confere a nenhum aluno"
-    });
+    next (erro);
   }
 }
 
@@ -75,10 +72,7 @@ export async function atualizarAluno(req, res, next) {
 
   return res.status(200).json(aluno);
   } catch (erro) {
-    console.error(erro);
-    return res.status(500).json({
-      erro: "o id não confere a nenhum aluno"
-    });
+    next (erro);
   }
 }
 
@@ -92,8 +86,6 @@ export async function deletarAluno(req, res, next) {
 
     return res.status(204).end();
   } catch (erro) {
-     return res.status(500).json({
-      erro: "o id não confere a nenhum aluno"
-    });
+    next (erro);
   }
 }
