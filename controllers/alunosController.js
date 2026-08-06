@@ -87,4 +87,5 @@ export async function deletarAluno(req, res, next) {
     return res.status(204).end();
   } catch (erro){
     next(erro);
-  
+  }
+}
