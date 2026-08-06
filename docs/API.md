@@ -128,15 +128,19 @@ Olá. Gostaria de te dizer que essa API possui CORS ativado para qualquer origem
       {
         "id": 1,
         "nome": "Alana",
+        "email": "ajro1@email.com",
         "cidade": "Salinas",
         "frase": "Abrace o mundo e você será abraçado.",
         "planosFuturos": "Cursar Biologia",
-        "fotoUrl": null
+        "fotoUrl": null,
+        "role": "USER",
+        "criadoEm": "2026-04-03T10:30:00.000Z"
       }
 
       ```
 
     - **Erros:**
+      - `404` — Aluno não encontrado
       - `500` — Erro interno do servidor
 
     ### PUT /alunos/:id
@@ -167,6 +171,7 @@ Olá. Gostaria de te dizer que essa API possui CORS ativado para qualquer origem
     ```
 
     - **Erros:**
+      - `404` — Aluno não encontrado
       - `500` — Erro interno do servidor
 
     ### DELETE /alunos/:id
@@ -179,6 +184,7 @@ Olá. Gostaria de te dizer que essa API possui CORS ativado para qualquer origem
     - **Resposta de Sucesso:** `204 No Content`
 
     - **Erros:**
+      - `404` — Aluno não encontrado
       - `500` — Erro interno do servidor
 
   ## Mensagens
@@ -195,7 +201,7 @@ Olá. Gostaria de te dizer que essa API possui CORS ativado para qualquer origem
     ```json
       [
         {
-          "idMensagem": 2,
+          "id": 2,
           "texto": "Boa sorte!",
 
           "autor": {
@@ -206,11 +212,11 @@ Olá. Gostaria de te dizer que essa API possui CORS ativado para qualquer origem
         },
 
         {  
-          "idMensagem": 3,
+          "id": 3,
           "texto": "Obrigado, você também!",
 
-          /*o que entendi é que "include do Prisma" é a mesma coisa que
-          essa seção "autor"*/
+          //o que entendi é que "include do Prisma" é a mesma coisa que essa seção "autor"
+
           "autor": {
           "id": 2,
           "nome": "Amilton",
@@ -236,19 +242,23 @@ Olá. Gostaria de te dizer que essa API possui CORS ativado para qualquer origem
     - **Resposta de sucesso:** `201 Created`
 
     ```json
-
+    {
+      "id": 1,
       "texto": "Boa sorte para todo mundo!",
-
+      "imagemUrl": null,
+      "autorId": 2,
       "autor": {
-      "id": 2,
-      "nome": "Amilton",
-      "fotoUrl": null
-      }
+        "id": 2,
+        "nome": "Amilton",
+        "fotoUrl": null
+      },
+      "criadoEm": "2026-04-03T10:30:00.000Z"
+    }
     ```
 
     - **Erros:**
-      - `400` — Campos obrigatórios ausentes
-      - `401` — Usuário não autenticado
+      - `400` — O campo texto é obrigatório
+      - `500` — Erro interno do servidor
 
     ### DELETE /mensagens/:id
 
@@ -260,5 +270,5 @@ Olá. Gostaria de te dizer que essa API possui CORS ativado para qualquer origem
     - **Resposta de Sucesso:** `204 No Content`
 
     - **Erros:**
-      - `401` — Usuário não autenticado
-      - `403` — Usuário sem permissão
+      - `404` — Mensagem não encontrada
+      - `500` — Erro interno do servidor
