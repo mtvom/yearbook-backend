@@ -18,19 +18,22 @@ const selectSemSenha = {
 export async function listarAlunos(req, res, next) {  // adicione next aos parâmetros
   try {
     const alunos = await prisma.aluno.findMany({
-      select: selectSemSenha,
+    select: selectSemSenha,
     });
+
     res.json(alunos);
+
   } catch (erro) {
     next(erro);  // passa o erro para o middleware global
   }
 }
 
-// GET /alunos/:id — busca um aluno pelo ID
+// GET /alunos/id — busca um aluno pelo ID
 
 export async function buscarAluno(req, res, next) {
-  try{
-    const { id } = req.params; // extrai o :id da URL
+try {
+  const { id } = req.params; // extrai o \:id da URL
+
   const aluno = await prisma.aluno.findUnique({
     where: { id: Number(id) }, // converte string → number
     select: selectSemSenha,    // omite senhaHash
@@ -41,38 +44,52 @@ export async function buscarAluno(req, res, next) {
   }
 
   res.json(aluno); // retorna o aluno encontrado
-  } catch(erro){
+
+} catch(erro) {
     next(erro);
   }
-  
+
 }
 
 // --- Stubs para o desafio do aluno ---
+
 export async function criarAluno(req, res, next) {
   try {
+    const { nome, email, senhaHash, cidade, frase, planosFuturos } = req.body;
+
     const aluno = await prisma.aluno.create({
-      data: req.body,
+      data: {
+        nome,
+        email,
+        senhaHash,
+        cidade,
+        frase,
+        planosFuturos,
+      },
       select: selectSemSenha,
     });
 
     return res.status(201).json(aluno);
-  } catch (erro){
-    next(erro);
-  }
+
+  } catch (erro) {
+      next(erro);
+    }
 }
 
 export async function atualizarAluno(req, res, next) {
   const { id } = req.params;
-  try{
-  const aluno = await prisma.aluno.update({
-  where: { id: Number(id) },
-  data: req.body,
-  select: selectSemSenha,
-  });
 
-  return res.status(200).json(aluno);
-  } catch (erro){
-    next(erro);
+  try {
+    const aluno = await prisma.aluno.update({
+      where: { id: Number(id) },
+      data: req.body,
+      select: selectSemSenha,
+    });
+
+    return res.status(200).json(aluno);
+
+  } catch (erro) {
+    return res.status(404).json({ erro: "Aluno não encontrado" });
   }
 }
 
@@ -85,7 +102,8 @@ export async function deletarAluno(req, res, next) {
     });
 
     return res.status(204).end();
-  } catch (erro){
-    next(erro);
+
+  } catch (erro) {
+    return res.status(404).json({ erro: "Aluno não encontrado" });
   }
 }
