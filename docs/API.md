@@ -52,7 +52,8 @@ Olá. Gostaria de te dizer que essa API possui CORS ativado para qualquer origem
     ```
 
     - **Erros:**
-      - `500` — Erro interno no servidor
+      - `400` — Campos obrigatórios ausentes
+      - `409` — Email já cadastrado
 
     ### POST /auth/login
 
@@ -137,7 +138,7 @@ Olá. Gostaria de te dizer que essa API possui CORS ativado para qualquer origem
       ```
 
     - **Erros:**
-      - `500` — Erro interno no servidor
+      - 404 — Aluno não encontrado (id não existe)
 
     ### PUT /alunos/:id
 
@@ -167,7 +168,8 @@ Olá. Gostaria de te dizer que essa API possui CORS ativado para qualquer origem
     ```
 
     - **Erros:**
-      - `500` — Erro interno no servidor
+      - `401` — Usuário não autenticado
+      - `403` — Sem permissão para atualizar este perfil
 
     ### DELETE /alunos/:id
 
@@ -179,7 +181,8 @@ Olá. Gostaria de te dizer que essa API possui CORS ativado para qualquer origem
     - **Resposta de Sucesso:** `204 No Content`
 
     - **Erros:**
-      - `500` — Erro interno no servidor
+      - `401` — Usuário não autenticado
+      - `403` — Usuário sem permissão de administrador
 
   ## Mensagens
 
@@ -247,7 +250,8 @@ Olá. Gostaria de te dizer que essa API possui CORS ativado para qualquer origem
     ```
 
     - **Erros:**
-      - `500` — Erro interno no servidor
+      - `400` — Campos obrigatórios ausentes
+      - `401` — Usuário não autenticado
 
     ### DELETE /mensagens/:id
 
@@ -259,4 +263,5 @@ Olá. Gostaria de te dizer que essa API possui CORS ativado para qualquer origem
     - **Resposta de Sucesso:** `204 No Content`
 
     - **Erros:**
-      - `500` — Erro interno no servidor
+      - `401` — Usuário não autenticado
+      - `403` — Usuário sem permissão
