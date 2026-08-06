@@ -72,7 +72,7 @@ export async function deletarMensagem(req, res, next) {
     });
 
     return res.status(204).end();
-  } catch (erro) {
-    next (erro);
+  } catch (erro){
+    next(erro);
   }
 }

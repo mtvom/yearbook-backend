@@ -56,8 +56,8 @@ export async function criarAluno(req, res, next) {
     });
 
     return res.status(201).json(aluno);
-  } catch (erro) {
-    next (erro);
+  } catch (erro){
+    next(erro);
   }
 }
 
@@ -71,8 +71,8 @@ export async function atualizarAluno(req, res, next) {
   });
 
   return res.status(200).json(aluno);
-  } catch (erro) {
-    next (erro);
+  } catch (erro){
+    next(erro);
   }
 }
 
@@ -85,7 +85,6 @@ export async function deletarAluno(req, res, next) {
     });
 
     return res.status(204).end();
-  } catch (erro) {
-    next (erro);
-  }
-}
+  } catch (erro){
+    next(erro);
+  
